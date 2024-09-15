@@ -13,6 +13,7 @@ module.exports = async (req, res) => {
             fname: req.body.fname,
             lname: req.body.lname,
             email: req.body.email,
+            auth: '66e724f886f3432a23dbc84e',
             password: hash
         };
 
