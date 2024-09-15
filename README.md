@@ -67,8 +67,8 @@ To register a new user, send a POST request to the `/api/users/signup` endpoint 
 
 ```
 {
-  "firstName": "John",
-  "lastName": "Doe",
+  "fname": "John",
+  "lname": "Doe",
   "email": "johndoe@example.com",
   "password": "password"
 }
@@ -77,8 +77,8 @@ To register a new user, send a POST request to the `/api/users/signup` endpoint 
 The response will be a JSON object with the following properties:
 
 * `_id`: The user ID
-* `firstName`: The user firstname
-* `lastName`: The user lastname
+* `fname`: The user firstname
+* `lname`: The user lastname
 * `email`: The user email
 * `token`: The JWT token
 
@@ -96,8 +96,8 @@ To login, send a POST request to the `/api/users/signin` endpoint with the follo
 The response will be a JSON object with the following properties:
 
 * `_id`: The user ID
-* `firstName`: The user firstname
-* `lastName`: The user lastname
+* `fname`: The user firstname
+* `lname`: The user lastname
 * `email`: The user email
 * `token`: The JWT token
 
@@ -110,8 +110,8 @@ To authenticate a user, send a GET request to the `/api/users` endpoint with the
 The response will be a JSON object with the following properties:
 
 * `_id`: The user ID
-* `firstName`: The user firstname
-* `lastName`: The user lastname
+* `fname`: The user firstname
+* `lname`: The user lastname
 * `email`: The user email
 * `token`: The JWT token
 
@@ -133,8 +133,8 @@ To edit an existing user, send a POST request to the `/api/users/edit` endpoint 
 
 ```
 {
-  "firstName": "John",
-  "lastName": "Doe",
+  "fname": "John",
+  "lname": "Doe",
   "email": "johndoe@example.com",
   "password": "password",
   "file": The user profile picture
@@ -144,8 +144,8 @@ To edit an existing user, send a POST request to the `/api/users/edit` endpoint 
 The response will be a JSON object with the following properties:
 
 * `_id`: The user ID
-* `firstName`: The user firstname
-* `lastName`: The user lastname
+* `fname`: The user firstname
+* `lname`: The user lastname
 * `email`: The user email
 * `imageUrl`: The user profile picture url
 
@@ -285,17 +285,13 @@ This middleware ensures that the authenticated user has administrative privilege
 
 ---
 
-Here is the detailed documentation for the `option.router.js` file, including the endpoints, request details, middleware functions, and error handling for the **Libanga Dedication API**.
-
----
-
 ### Options API Endpoints
 
 These routes allow **sellers** (artists, clubs, journalists, or events) to create, retrieve, and manage dedication options.
 
 #### 1. **Get All Options for a Seller**
 
-- **URL:** `/api/option/all`
+- **URL:** `/api/stuff/option/all`
 - **Method:** `GET`
 - **Query Parameters:**
   - `seller`: The ID of the seller (e.g., artist, event, club) whose options you want to retrieve.
@@ -323,7 +319,7 @@ These routes allow **sellers** (artists, clubs, journalists, or events) to creat
 
 #### 2. **Get a Specific Option**
 
-- **URL:** `/api/option`
+- **URL:** `/api/stuff/option`
 - **Method:** `GET`
 - **Query Parameters:**
   - `id`: The ID of the option you want to retrieve.
@@ -349,7 +345,7 @@ These routes allow **sellers** (artists, clubs, journalists, or events) to creat
 
 #### 3. **Create a New Option**
 
-- **URL:** `/api/option`
+- **URL:** `/api/stuff/option`
 - **Method:** `POST`
 - **Headers:** 
   - `Authorization: Bearer <JWT_TOKEN>`
@@ -419,10 +415,6 @@ This middleware checks if the authenticated user has seller privileges. It verif
 - **400 Bad Request:** If the request body is invalid or missing required fields.
 - **403 Forbidden:** If the user is not a seller and lacks permission to create options.
 - **500 Internal Server Error:** For server-side errors during database operations.
-
----
-
-Here is the detailed documentation for the `dedication.router.js` file, which deals with the **dedications** created when users order an option proposed by a seller. The documentation includes endpoints, request details, and error handling for the **Libanga Dedication API**.
 
 ---
 

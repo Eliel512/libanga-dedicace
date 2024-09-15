@@ -16,10 +16,8 @@ module.exports = (req, res, next) => {
                     res.status(200).json({
                         _id: user._id,
                         fname: user.fname,
-                        middleName: user.mname,
                         lname: user.lname,
                         email: user.email,
-                        accountType: user.accountType,
                         favorites: user.favorites,
                         imageUrl: user.imageUrl,
                         createdAt: user.createdAt,

@@ -13,10 +13,8 @@ module.exports = (req, res, next) => {
                 _id: user._id,
                 fname: user.fname,
                 lname: user.lname,
-                middleName: user.mname,
                 email: user.email,
                 favorites: user.favorites,
-                accountType: user.accountType,
                 createdAt: user.createdAt,
                 updatedAt: user.updatedAt,
                 imageUrl: user.imageUrl

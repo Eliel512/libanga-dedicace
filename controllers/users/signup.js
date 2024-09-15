@@ -9,10 +9,8 @@ module.exports = (req, res, next) => {
         .then(hash => {
             const user = new User({
                 fname: req.body.fname,
-                mname: req.body.middleName,
                 lname: req.body.lname,
                 email: req.body.email,
-                accountType: req.body.accountType || 'buyer',
                 password: hash
             });
 
@@ -23,14 +21,10 @@ module.exports = (req, res, next) => {
                     res.status(200).json({
                         _id: user._id,
                         fname: user.fname,
-                        middleName: user.mname,
                         lname: user.lname,
-                        gender: user.gender,
                         email: user.email,
-                        address: user.address,
                         imageUrl: user.imageUrl,
                         favorites: user.favorites,
-                        accountType: user.accountType,
                         createdAt: user.createdAt,
                         updatedAt: user.updatedAt,
                         token: jwt.sign(

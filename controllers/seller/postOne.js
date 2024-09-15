@@ -1,9 +1,26 @@
+const bcrypt = require('bcrypt');
 const Artist = require('../../models/artist.model');
 const Journalist = require('../../models/journalist.model');
 const Club = require('../../models/club.model');
 const Event = require('../../models/event.model');
+const getValidationToken = require('../../utils/getValidationToken');
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
+    let userObj;
+    try{
+        const hash = await bcrypt.hash(req.body.password, 10);
+        userObj = {
+            fname: req.body.fname,
+            lname: req.body.lname,
+            email: req.body.email,
+            password: hash
+        };
+
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({ message: 'Une erreur est survenue' })
+    }
+
     switch(req.body.kind){
         case 'artist':
             const newArtist = new Artist({
@@ -11,8 +28,10 @@ module.exports = (req, res) => {
                 type: req.body.type,
                 genres: req.body.genres,
                 options: req.body.options,
-                events: req.body.events
+                events: req.body.events,
+                ...userObj
             });
+            newArtist.token = getValidationToken(newArtist._id);
             newArtist.save()
                 .then(() => res.status(201).json(newArtist))
                 .catch(err => {
@@ -24,8 +43,10 @@ module.exports = (req, res) => {
             const newJournalist = new Journalist({
                 name: req.body.name,
                 media: req.body.media,
-                options: req.body.options
+                options: req.body.options,
+                ...userObj
             });
+            newJournalist.token = getValidationToken(newJournalist._id);
             newJournalist.save()
                 .then(() => res.status(201).json(newJournalist))
                 .catch(err => {
@@ -38,8 +59,10 @@ module.exports = (req, res) => {
                 name: req.body.name,
                 location: req.body.location,
                 options: req.body.options,
-                events: req.body.events
+                events: req.body.events,
+                ...userObj
             });
+            newClub.token = getValidationToken(newClub._id);
             newClub.save()
                 .then(() => res.status(201).json(newClub))
                 .catch(err => {

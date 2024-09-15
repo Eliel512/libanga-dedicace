@@ -15,7 +15,6 @@ module.exports = (req, res) => {
                             fname: user.fname,
                             lname: user.lname,
                             email: user.email,
-                            accountType: user.accountType,
                             favorites: user.favorites,
                             imageUrl: user.imageUrl,
                             token: jwt.sign(
