@@ -10,25 +10,9 @@ const editSchema = Joi.object({
     lname: Joi.string()
         .min(2),
 
-    mname: Joi.string()
-        .min(2),
-
-    address: Joi.object().keys({
-        city: Joi.string()
-            .min(2),
-        municipality: Joi.string()
-            .min(2),
-        street: Joi.string()
-            .min(2),
-        number: Joi.number(),
-    }),
-
     email: Joi.string(),
     // .email({ minDomainSegments: 2, allowFullyQualified: true })
     // .min(5)
-
-    accountType: Joi.string()
-        .min(5),
 
     password: Joi.string()
         .min(8)
@@ -36,12 +20,9 @@ const editSchema = Joi.object({
 
 module.exports = (req, res, next) => {
     const { error, value } = editSchema.validate({
-        fname: req.body.firstName,
-        mname: req.body.middleName,
-        lname: req.body.lastName,
+        fname: req.body.fname,
+        lname: req.body.lname,
         email: req.body.email,
-        address: req.body.address,
-        accountType: req.body.accountType,
         password: req.body.password
     });
     if (error) {

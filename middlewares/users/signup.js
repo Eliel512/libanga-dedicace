@@ -22,8 +22,8 @@ const signupSchema = Joi.object({
 
 module.exports = (req, res, next) => {
     const { error, value } = signupSchema.validate({
-        fname: req.body.firstName,
-        lname: req.body.lastName,
+        fname: req.body.fname,
+        lname: req.body.lname,
         email: req.body.email,
         password: req.body.password
     });
