@@ -696,3 +696,72 @@ This API allows managing comments associated with posts and their authors. **POS
   {
   "message": "Commentaire supprimé avec succès"
   }
+
+### Messages API Endpoints
+
+#### 1. Send Message
+
+- **URL**: `api/stuff/message`
+- **Method**: `POST`
+- **Request Body**:
+  ```json
+  {
+    "name": "User Name",
+    "email": "user@example.com",
+    "phone": "09xxxxxxxx",
+    "message": "Message content"
+  }
+- **Success Response**:
+  ```json
+  Copier le code
+  {
+    "message": "Message sent successfully"
+  }
+- **Error Responses**:
+  - `400 Bad Request`: Invalid input data
+  - `500 Internal Server Error`: Error saving message
+
+#### 2. Get Messages
+
+- **URL**: `api/stuff/message`
+- **Method**: `GET`
+- **Query Parameters**:
+  - `id` (optional): ID of the specific message to retrieve
+- **Auth**: Administrator required
+- **Behavior**:
+  - If `id` is provided: Retrieves the message with the specified ID.
+  - If `id` is not provided: Retrieves all messages, sorted by creation date.
+- **Success Responses**:
+  - For specific `id`:
+    ```json
+    {
+      "message": {
+        "_id": "Message ID",
+        "name": "User Name",
+        "email": "user@example.com",
+        "phone": "09xxxxxxxx",
+        "message": "Message content",
+        "createdAt": "Date message was received"
+      }
+    }
+    ```
+  - For all messages:
+    ```json
+    {
+      "messages": [
+        {
+          "_id": "Message ID",
+          "name": "User Name",
+          "email": "user@example.com",
+          "phone": "09xxxxxxxx",
+          "message": "Message content",
+          "createdAt": "Date message was received"
+        }
+      ]
+    }
+    
+- **Error Responses**:
+  - **400 Bad Request**: Missing or invalid id parameter
+  - **403 Forbidden**: User does not have sufficient privileges
+  - **404 Not Found**: Message not found (only for specific id queries)
+  - **500 Internal Server Error**: Error retrieving messages

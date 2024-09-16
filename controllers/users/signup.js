@@ -18,22 +18,29 @@ module.exports = (req, res, next) => {
             user.token = getValidationToken(user._id);
 
             user.save()
-                .then(() => {
-                    res.status(200).json({
-                        _id: user._id,
-                        fname: user.fname,
-                        lname: user.lname,
-                        email: user.email,
-                        imageUrl: user.imageUrl,
-                        favorites: user.favorites,
-                        createdAt: user.createdAt,
-                        updatedAt: user.updatedAt,
-                        token: jwt.sign(
-                            { _id: user._id },
-                            process.env.TOKEN_KEY,
-                            { expiresIn: '48h' }
-                        )
-                    });
+                .then(async () => {
+                    try{
+                        const userR = await User.populate(user, 'auth');
+                        res.status(200).json({
+                            _id: user._id,
+                            fname: userR.fname,
+                            lname: userR.lname,
+                            email: userR.email,
+                            auth: userR.auth,
+                            imageUrl: userR.imageUrl,
+                            favorites: userR.favorites,
+                            createdAt: userR.createdAt,
+                            updatedAt: userR.updatedAt,
+                            token: jwt.sign(
+                                { _id: userR._id },
+                                process.env.TOKEN_KEY,
+                                { expiresIn: '48h' }
+                            )
+                        });
+                    }catch(err){
+                        console.log(err);
+                        return res.stauts(500).json({ message: 'Une erreur est survenue' });
+                    }
                 })
                 .catch(error => {
                     console.log(error);

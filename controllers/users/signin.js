@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
     User.findOne({ email: req.body.email }, { __v: 0, token: 0 })
+        .populate('auth')
+        .exec()
         .then(user => {
             if (!user) {
                 return res.status(404).json({ message: 'Utilisateur non trouvé !' });
@@ -18,6 +20,7 @@ module.exports = (req, res, next) => {
                         fname: user.fname,
                         lname: user.lname,
                         email: user.email,
+                        auth: user.auth,
                         favorites: user.favorites,
                         imageUrl: user.imageUrl,
                         createdAt: user.createdAt,
