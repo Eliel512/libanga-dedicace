@@ -534,3 +534,165 @@ These routes allow **users** to create and manage dedications. A dedication is g
 ### Error Handling
 
 - **500 Internal Server Error:** For general errors during saving or retrieving dedications (e.g., issues with database operations).
+
+---
+
+### Comments API Endpoints
+This API allows managing comments associated with posts and their authors. **POST**, **PUT**, and **DELETE** operations require authentication, while **GET** operations are public.
+
+#### 1. Create Comment
+
+- **URL**: `api/stuff/comments`
+- **Method**: `POST`
+- **Auth**: Required
+- **Request Body**:
+  ```json
+  {
+    "content": "Comment content",
+    "author": "Author ID",
+    "post": "Post ID"
+  }
+
+- **Success Response (201)**:
+  ```json
+  {
+    "message": "Comment created successfully",
+    "comment": {
+      "_id": "Comment ID",
+      "content": "Comment content",
+      "author": {
+        "_id": "Author ID",
+        "name": "Author name"
+      },
+      "post": {
+        "infos": "Post ID",
+        "model": "Post model name"
+      },
+      "createdAt": "Creation date",
+      "updatedAt": "Update date"
+    }
+  }
+
+#### 2. Get Comments
+
+- **URL**: `api/stuff/comments`
+- **Method**: `GET`
+- **Auth**: Not required
+- **Query Parameters**:
+  - `type`: Specifies the query type (`id`, `author`, `post`)
+  - For `type=id`:
+    - `id`: ID of the comment
+  - For `type=author`:
+    - `author`: ID of the author
+  - For `type=post`:
+    - `post`: ID of the post
+- Success Response (200):
+  - For `type=id`:
+    ```json
+    {
+      "comment": {
+        "_id": "Comment ID",
+        "content": "Comment content",
+        "author": {
+          "_id": "Author ID",
+          "name": "Author name"
+        },
+        "post": {
+          "infos": "Post ID",
+          "model": "Post model name"
+        },
+        "createdAt": "Creation date",
+        "updatedAt": "Update date"
+      }
+    }
+  ```
+  - For `type=author`:
+    ```json
+    {
+      "comments": [
+        {
+          "_id": "Comment ID",
+          "content": "Comment content",
+          "author": {
+            "_id": "Author ID",
+            "name": "Author name"
+          },
+          "post": {
+            "infos": "Post ID",
+            "model": "Post model name"
+          },
+          "createdAt": "Creation date",
+          "updatedAt": "Update date"
+        }
+      ]
+    }
+  ```
+  - For `type=post`:
+    ```json
+    {
+      "comments": [
+        {
+          "_id": "Comment ID",
+          "content": "Comment content",
+          "author": {
+            "_id": "Author ID",
+            "name": "Author name"
+          },
+          "post": {
+            "infos": "Post ID",
+            "model": "Post model name"
+          },
+          "createdAt": "Creation date",
+          "updatedAt": "Update date"
+        }
+      ]
+    }
+
+- **Error Responses**:
+  - `400 Bad Request` for missing or incorrect parameters
+  - `404 Not Found` if the comment or comments are not found
+  - `500 Internal Server Error` for server issues
+
+#### 3. Update Comment
+
+- **URL**: `api/stuff/comments`
+- **Method**: `PUT`
+- **Auth**: Required (Author must match)
+- **Request Body**:
+  ```json
+  {
+    "id": "ID of the comment",
+    "content": "Updated comment content"
+  }
+- **Success Response**:
+  ```json
+  {
+    "message": "Comment updated successfully",
+    "comment": {
+      "_id": "Comment ID",
+      "content": "Updated comment content",
+      "author": {
+        "_id": "Author ID",
+        "name": "Author name"
+      },
+      "post": {
+        "infos": "Post ID",
+        "model": "Post model name"
+      },
+      "createdAt": "Creation date",
+      "updatedAt": "Update date"
+    }
+  }
+
+#### 4. Delete Comment
+
+- **URL**: `api/stuff/comments`
+- **Method**: `DELETE`
+- **Auth**: Required (Author must match)
+- **Query Parameters**:
+  - **id**: `ID` of the comment
+- **Success Response (200)**:
+  ```json
+  {
+  "message": "Commentaire supprimé avec succès"
+  }
