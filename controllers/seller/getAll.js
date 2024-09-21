@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
     try {
         if (kind === 'all') {
             const [users, events] = await Promise.all([
-                getPaginatedData(User, { _id: 1, name: 1 }, parsedPage, parsedLimit, { kind: { $exists: true } }),
+                getPaginatedData(User, { _id: 1, name: 1, genres: 1 }, parsedPage, parsedLimit, { kind: { $exists: true } }),
                 getPaginatedData(Event, { _id: 1, title: 1, location: 1 }, parsedPage, parsedLimit)
             ]);
             return res.status(200).json([...users, ...events]);
@@ -35,11 +35,10 @@ module.exports = async (req, res) => {
         const model = isEvent ? Event : User;
         const projection = isEvent ? (seller ? { } : { _id: 1, title: 1, location: 1 }) :
             (seller ? { isValid: 0, token: 0, connected_at: 0, email: 0, password: 0, favorites: 0 } :
-                { _id: 1, name: 1 });
+                { _id: 1, name: 1, genres: 1 });
         const filter = seller ? { _id: seller } : (isEvent ? {} : {
             $or: [
-                { kind: kind },
-                { kind: { $exists: true } }
+                { kind: kind }
             ] });
 
         const data = await getPaginatedData(model, projection, parsedPage, parsedLimit, filter);
