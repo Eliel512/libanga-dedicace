@@ -8,7 +8,7 @@ const getAllMiddleware = require('../middlewares/message/getAll');
 const postOne = require('../controllers/message/postOne');
 const getOneForAll = require('../controllers/message/getAll');
 
-router.get('/message', auth, getAllMiddleware, getOneForAll);
-router.post('/message', postOneMiddleware, postOne);
+router.get('/', auth, getAllMiddleware, getOneForAll);
+router.post('/', postOneMiddleware, postOne);
 
 module.exports = router;

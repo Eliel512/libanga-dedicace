@@ -15,6 +15,8 @@ Libanga Dedicace is a Node.js API that allows **sellers** (artists, clubs, journ
   - [Sellers](#sellers-api-endpoints)
   - [Options](#options-api-endpoints)
   - [Dedications](#dedications-api-endpoints)
+  - [Comments](#comments-api-endpoints)
+  - [Messages](#messages-api-endpoints)
 ---
 
 ## Requirements
@@ -158,7 +160,7 @@ These routes allow administrators to create, retrieve, and delete sellers (Artis
 
 #### 1. **Create a Seller**
 
-- **URL:** `/api/stuff/seller`
+- **URL:** `/api/stuff/sellers`
 - **Method:** `POST`
 - **Headers:** 
   - `Authorization: Bearer <JWT_TOKEN>`
@@ -204,7 +206,7 @@ These routes allow administrators to create, retrieve, and delete sellers (Artis
 
 #### 2. **Get All Sellers**
 
-- **URL:** `/api/stuff/seller`
+- **URL:** `/api/stuff/sellers`
 - **Method:** `GET`
 - **Request Query Parameters:**
   - `page`: (Optional) The page number for pagination. Default is `1`.
@@ -232,7 +234,7 @@ These routes allow administrators to create, retrieve, and delete sellers (Artis
 
 #### 3. **Delete a Seller**
 
-- **URL:** `/api/stuff/seller`
+- **URL:** `/api/stuff/sellers`
 - **Method:** `DELETE`
 - **Headers:** 
   - `Authorization: Bearer <JWT_TOKEN>`
@@ -291,7 +293,7 @@ These routes allow **sellers** (artists, clubs, journalists, or events) to creat
 
 #### 1. **Get All Options for a Seller**
 
-- **URL:** `/api/stuff/option/all`
+- **URL:** `/api/stuff/options/all`
 - **Method:** `GET`
 - **Query Parameters:**
   - `seller`: The ID of the seller (e.g., artist, event, club) whose options you want to retrieve.
@@ -319,7 +321,7 @@ These routes allow **sellers** (artists, clubs, journalists, or events) to creat
 
 #### 2. **Get a Specific Option**
 
-- **URL:** `/api/stuff/option`
+- **URL:** `/api/stuff/options`
 - **Method:** `GET`
 - **Query Parameters:**
   - `id`: The ID of the option you want to retrieve.
@@ -345,7 +347,7 @@ These routes allow **sellers** (artists, clubs, journalists, or events) to creat
 
 #### 3. **Create a New Option**
 
-- **URL:** `/api/stuff/option`
+- **URL:** `/api/stuff/options`
 - **Method:** `POST`
 - **Headers:** 
   - `Authorization: Bearer <JWT_TOKEN>`
@@ -424,7 +426,7 @@ These routes allow **users** to create and manage dedications. A dedication is g
 
 #### 1. **Create a Dedication**
 
-- **URL:** `/api/stuff/dedication`
+- **URL:** `/api/stuff/dedications`
 - **Method:** `POST`
 - **Request Body:**
 
@@ -463,7 +465,7 @@ These routes allow **users** to create and manage dedications. A dedication is g
 
 #### 2. **Get All Dedications for a User**
 
-- **URL:** `/api/stuff/dedication/all`
+- **URL:** `/api/stuff/dedications/all`
 - **Method:** `GET`
 - **Headers:** 
   - `Authorization: Bearer <JWT_TOKEN>`
@@ -498,7 +500,7 @@ These routes allow **users** to create and manage dedications. A dedication is g
 
 #### 3. **Get a Specific Dedication**
 
-- **URL:** `/api/stuff/dedication`
+- **URL:** `/api/stuff/dedications`
 - **Method:** `GET`
 - **Headers:** 
   - `Authorization: Bearer <JWT_TOKEN>`
