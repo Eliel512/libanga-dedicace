@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
     const parsedLimit = parseInt(limit);
 
     try {
-        if (kind === 'all') {
+        if (kind === 'all' || !kind) {
             const [users, events] = await Promise.all([
                 getPaginatedData(User, { _id: 1, name: 1, genres: 1 }, parsedPage, parsedLimit, { kind: { $exists: true } }),
                 getPaginatedData(Event, { _id: 1, title: 1, location: 1 }, parsedPage, parsedLimit)
@@ -36,11 +36,7 @@ module.exports = async (req, res) => {
         const projection = isEvent ? (seller ? { } : { _id: 1, title: 1, location: 1 }) :
             (seller ? { isValid: 0, token: 0, connected_at: 0, email: 0, password: 0, favorites: 0 } :
                 { _id: 1, name: 1, genres: 1 });
-        const filter = seller ? { _id: seller } : (isEvent ? {} : {
-            $and: [
-                { kind: kind },
-                { kind: { $exists: true } }
-            ] });
+        const filter = seller ? { _id: seller } : (isEvent ? {} : { kind: kind });
 
         const data = await getPaginatedData(model, projection, parsedPage, parsedLimit, filter);
         return res.status(200).json(data);
