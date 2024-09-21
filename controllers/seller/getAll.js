@@ -37,8 +37,9 @@ module.exports = async (req, res) => {
             (seller ? { isValid: 0, token: 0, connected_at: 0, email: 0, password: 0, favorites: 0 } :
                 { _id: 1, name: 1, genres: 1 });
         const filter = seller ? { _id: seller } : (isEvent ? {} : {
-            $or: [
-                { kind: kind }
+            $and: [
+                { kind: kind },
+                { kind: { $exists: true } }
             ] });
 
         const data = await getPaginatedData(model, projection, parsedPage, parsedLimit, filter);
