@@ -5,9 +5,12 @@ const optionSchema = Joi.object({
         'string.empty': 'Le champ name est requis',
     }),
     description: Joi.string().allow(null, '').optional(),
-    price: Joi.number().positive().required().messages({
-        'number.base': 'Le champ price doit être un nombre',
-        'number.positive': 'Le champ price doit être positif',
+    price: Joi.object({
+        amount: Joi.number().positive().required().messages({
+            'number.base': 'Le champ price doit être un nombre',
+            'number.positive': 'Le champ price doit être positif',
+        }),
+        currency: Joi.string().valid('USD', 'CDF').optional()
     }),
     seller: Joi.object({
         model: Joi.string().valid('event', 'user').required(),
