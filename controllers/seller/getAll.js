@@ -23,10 +23,20 @@ module.exports = async (req, res) => {
     const parsedLimit = parseInt(limit);
 
     try {
-        if (kind === 'all' || !kind) {
+        if (kind === 'all' || !kind && !seller) {
             const [users, events] = await Promise.all([
                 getPaginatedData(User, { _id: 1, name: 1, genres: 1 }, parsedPage, parsedLimit, { kind: { $exists: true } }),
                 getPaginatedData(Event, { _id: 1, title: 1, location: 1 }, parsedPage, parsedLimit)
+            ]);
+            return res.status(200).json([...users, ...events]);
+        }
+        if(seller && !kind){
+            const [users, events] = await Promise.all([
+                getPaginatedData(User, { _id: 1, name: 1, genres: 1 }, parsedPage, parsedLimit, {
+                    _id: seller,
+                    kind: { $exists: true }
+                }),
+                getPaginatedData(Event, { _id: 1, title: 1, location: 1 }, parsedPage, parsedLimit, { _id: seller })
             ]);
             return res.status(200).json([...users, ...events]);
         }
