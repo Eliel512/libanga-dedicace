@@ -433,6 +433,8 @@ These routes allow **users** to create and manage dedications. A dedication is g
   ```json
   {
     "dedicationText": "This is a special dedication",
+    "transactionType": "1", // The type of transaction. 1: mobile money 2: card
+    "phone": "243xxxxxxxxx",
     "option": "option_id"  // The ID of the option being ordered
   }
   ```
@@ -454,6 +456,9 @@ These routes allow **users** to create and manage dedications. A dedication is g
         "_id": "seller_id",
         "name": "Seller Name"
       }
+    },
+    "details": {
+      // Transaction details
     }
   }
   ```

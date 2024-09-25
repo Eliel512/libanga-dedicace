@@ -5,8 +5,12 @@ const postOne = require('../controllers/dedication/postOne');
 const getAllForOne = require('../controllers/dedication/getAllForOne');
 const getOne = require('../controllers/dedication/getOne');
 
-router.post('/', postOne);
-router.get('/all');
-router.get('/');
+const postOneMiddleware = require('../middlewares/dedication/postOne');
+const createDedication = require('../middlewares/dedication/createDedication');
+const flexpay = require('../middlewares/dedication/flexpay');
+
+router.get('/all', getAllForOne);
+router.get('/', getOne);
+router.post('/', postOneMiddleware, createDedication, flexpay, postOne);
 
 module.exports = router;

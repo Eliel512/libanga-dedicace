@@ -5,15 +5,15 @@ const dedicationSchema = Joi.object({
     option: Joi.string().required()
 });
 
-const validateDedicationBody = (req, res, next) => {
-    const { error } = dedicationSchema.validate(req.body, { abortEarly: false });
-
+module.exports = (req, res, next) => {
+    const { dedicationText, option } = req.body;
+    const { error } = dedicationSchema.validate({
+        dedicationText,
+        option
+    }, { abortEarly: false });
     if (error) {
         const errorMessages = error.details.map(err => err.message);
         return res.status(400).json({ message: 'Données invalides', errors: errorMessages });
     }
-
     next();
 };
-
-module.exports = validateDedicationBody;

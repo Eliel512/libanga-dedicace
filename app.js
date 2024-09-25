@@ -3,9 +3,10 @@ const path = require('path');
 const mongoose = require('mongoose');
 const morgan = require("morgan");
 const compression = require('compression');
-const swaggerUi = require('swagger-ui-express');
-const swaggerJsdoc = require('swagger-jsdoc');
+// const swaggerUi = require('swagger-ui-express');
+// const swaggerJsdoc = require('swagger-jsdoc');
 const apiRouter = require('./routes/api.router');
+const flexcallback = require('./controllers/flexcallback/postOne')
 const initializeAuth = require('./initializeAuth');
 
 app = express();
@@ -52,6 +53,7 @@ mongoose.connect(process.env.MONGODB_URI,
         app.use('/profils', express.static(path.join(__dirname, 'profils')));
 
         app.use('/api', apiRouter);
+        app.use('/flexcallback', flexcallback);
     })
     .catch(() => console.log('Connexion à MongoDB échouée !'));
 

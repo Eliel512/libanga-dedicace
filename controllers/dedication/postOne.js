@@ -3,13 +3,7 @@ const Event = require('../../models/event.model');
 const User = require('../../models/user.model');
 
 module.exports = (req, res) => {
-    const dedication = new Dedication({
-        user: res.locals.userId,
-        dedicationText: req.body.dedicationText,
-        option: req.body.option
-    });
-
-    dedication.save()
+    res.locals.dedication.save()
         .then(dedication => {
             return Dedication.populate(dedication, [{
                 path: 'user',
@@ -29,6 +23,6 @@ module.exports = (req, res) => {
         .then(dedication => res.status(201).json(dedication))
         .catch(err => {
             console.log(err);
-            res.status(500).json({ message: 'Une erreur est survenue' });
+            return res.status(500).json({ message: 'Une erreur est survenue' });
         });
 };

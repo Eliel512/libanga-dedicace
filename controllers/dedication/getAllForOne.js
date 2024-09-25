@@ -3,7 +3,7 @@ const User = require('../../models/user.model');
 const Event = require('../../models/event.model');
 
 module.exports = (req, res) => {
-    Dedication.find({ user: res.locals.user })
+    Dedication.find({ user: res.locals.userId })
         .populate({
             path: 'user',
             select: '_id name fname mname lname'

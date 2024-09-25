@@ -15,6 +15,10 @@ const dedicationSchema = new Schema({
         ref: 'option',
         required: true
     },
+    details: {
+        type: Schema.Types.Mixed,
+        required: false
+    },
     date: {
         type: Date,
         default: Date.now

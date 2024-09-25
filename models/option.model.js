@@ -32,8 +32,16 @@ const optionSchema = new Schema({
     },
     options: [optionsSchema],
     price: {
-        type: Number,
-        required: true
+        amount: {
+            type: Number,
+            required: true
+        },
+        currency: {
+            type: String,
+            enum: ['USD', 'CDF'],
+            default: 'CDF',
+            required: true
+        }
     }
 });
 
