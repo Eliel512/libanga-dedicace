@@ -11,7 +11,7 @@ const auth = require('../middlewares/users/auth');
 
 router.use('/sellers', sellerRouter);
 router.use('/dedications', auth, dedicationRouter);
-router.use('/options', optionRouter);
+router.use('/options', auth, optionRouter);
 router.use('/comments', commentRouter);
 router.use('/message', messageRouter);
 
