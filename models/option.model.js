@@ -26,7 +26,7 @@ const optionSchema = new Schema({
             required: true
         }
     },
-    Description: {
+    description: {
         type: String,
         required: true
     },
