@@ -3,7 +3,7 @@ const User = require('../../models/user.model');
 const Event = require('../../models/event.model');
 
 module.exports = (req, res) => {
-    Option.find({ seller: req.query.seller })
+    Option.find({ 'seller.infos': req.query.seller })
         .then(options => {
             const populatePromises = options.map(option => {
                 const modelToUse = option.seller.model === 'event' ? Event : User;
