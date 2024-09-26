@@ -11,11 +11,8 @@ module.exports = (req, res) => {
         .populate({
             path: 'option'
         })
-        .exec((err, dedications) => {
-            if(err){
-                console.lof(err);
-                return res.status(500).json({ message: 'Une erreur est survenue' });
-            }
+        .exec()
+        .then(dedications => {
             const populatePromises = dedications.map(dedication => {
                 const modelToUse = dedication.option.seller.model === 'event' ? Event : User;
                 return Dedication.populate(dedication, {
@@ -31,5 +28,9 @@ module.exports = (req, res) => {
                     console.log(err);
                     res.status(500).json({ message: 'Une erreur est survenue' });
                 });
+        })
+        .catch(err => {
+            console.log(err);
+            return res.status(500).json({ message: 'Une erreur est survenue' });
         });
 };
