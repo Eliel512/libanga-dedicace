@@ -5,5 +5,6 @@ module.exports = (req, res) => {
         details: req.body
     });
     callback.save()
+        .then(() => console.log('OK'))
         .catch(err => console.log(err));
 };
