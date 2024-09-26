@@ -18,7 +18,7 @@ module.exports = (req, res, next) => {
                     amount: amount,
                     currency: currency,
                     callbackUrl: process.env.FLEXPAY_CALLBACK_URL ||
-                        process.env.RENDER_EXTERNAL_URL + '/flex-callback'
+                        process.env.RENDER_EXTERNAL_URL + '/flexcallback'
                 },{
                     headers: { 'Authorization': 'Bearer ' + process.env.FLEXPAY_AUTH_TOKEN },
                 });
