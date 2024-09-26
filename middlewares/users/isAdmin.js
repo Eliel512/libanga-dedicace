@@ -8,9 +8,11 @@ const isAdmin = async (req, res, next) => {
             return res.status(403).json({ message: 'Utilisateur non autorisé' });
         }
 
-        const adminPrivileges = user.auth.privileges.some(privilege =>
-            privilege.kind === req.body.kind && privilege.permissions.includes('write')
-        );
+        // const adminPrivileges = user.auth.privileges.some(privilege =>
+        //     privilege.kind === req.body.kind && privilege.permissions.includes('write')
+        // );
+
+        const adminPrivileges = user.auth.name == 'admin';
 
         if (!adminPrivileges) {
             return res.status(403).json({ message: 'Accès refusé: Privilèges d\'administrateur requis' });
