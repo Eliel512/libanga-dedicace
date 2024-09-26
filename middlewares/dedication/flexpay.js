@@ -10,18 +10,17 @@ module.exports = (req, res, next) => {
             const { amount, currency } = option.price;
             try {
                 const response = await axios.post(process.env.FLEXPAY_MOBILE_HOST, {
+                    Authorization: 'Bearer ' + process.env.FLEXPAY_AUTH_TOKEN,
+                    merchant: process.env.FLEXPAY_MERCHANT,
+                    type: req.body.transactionType,
+                    phone: req.body.phone,
+                    reference: res.locals.dedication._id,
+                    amount: amount,
+                    currency: currency,
+                    callbackUrl: process.env.FLEXPAY_CALLBACK_URL ||
+                        process.env.RENDER_EXTERNAL_URL + '/flex-callback'
+                },{
                     headers: { 'Authorization': 'Bearer ' + process.env.FLEXPAY_AUTH_TOKEN },
-                    body: {
-                        Authorization: 'Bearer ' + process.env.FLEXPAY_AUTH_TOKEN,
-                        merchant: process.env.FLEXPAY_MERCHANT,
-                        type: req.body.transactionType,
-                        phone: req.body.phone,
-                        reference: res.locals.dedication._id,
-                        amount: amount,
-                        currency: currency,
-                        callbackUrl: process.env.FLEXPAY_CALLBACK_URL ||
-                            process.env.RENDER_EXTERNAL_URL + '/flex-callback'
-                    }
                 });
                 switch(response.data.code){
                     case '0':
